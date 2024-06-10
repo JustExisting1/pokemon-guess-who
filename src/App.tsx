@@ -1,34 +1,79 @@
+import { useEffect, useState } from "react";
 import "./App.css";
 import Board from "./components/Board";
+import getRandomInt from "./utils/randomInt";
+import Tile from "./components/Tile";
 
-// function Tiles() {
-//     const tileItems = list.map((x) => <Tile name={x.name} src={x.image} />);
-//     return tileItems;
-// }
+//Generate key for board
+//Pick a random tile from the board key
+//generate the passing in the board key
 
-//Call backend for x amount of pokemon
-//generate the board string for the pokemon ints
-//load in x amount of pokemon names name images
-//cache images somewhere?
-//Temp Gen
+const maxRange = 1025;
+const boardSize = 2;
 
-// async function Board() {
-//     const table = await createTable(tileCount); //Array of objects
-//     const tiles:JSX.Element[] = []; //Array to store Tiles
-//     table.map((i) => {
-//         tiles.push(<Tile name={i.name} image={i.sprites.front_default} />);
-//         });
-//     return tiles;
-// }
+const boardKey = (boardSize: number): number[] => {
+    const key: number[] = [];
+    for (let i = 0; i < boardSize; i++) {
+        key.push(getRandomInt(0, maxRange));
+    }
+    return key;
+};
+
+const keyToUrl = (key: number[]) => {
+    if (key.length == 0) {
+        return null;
+    }
+
+    const keyAsUrl: string = key.join("-");
+    return keyAsUrl;
+};
 
 function App() {
+    const [board, setBoard] = useState<number[]>([]);
+    const [myTile, setMyTile] = useState<number>(0);
+
+    //Generate a board on start
+    useEffect(() => {
+        setBoard(boardKey(boardSize));
+    }, []);
+
+    //Create new board -> change url to new site?
+    function genBoard() {
+        //This should reload the page to the new board url site
+        setBoard(boardKey(boardSize));
+    }
+
+    function pickTile() {
+        //Ensure a board has been generated
+        const rand = getRandomInt(0, (board.length-1));
+        setMyTile(board[rand]);
+    }
+
     return (
         <div className="bg-zinc-700 min-h-screen">
-            <h1 className="font-test01 text-5xl text-center pt-4">Guess Who Game</h1>
+            <h1 className="font-test01 text-5xl text-center pt-4">
+                Guess Who Game
+            </h1>
             <br></br>
-
+            <div className="flex mx-auto size-fit p-4 justify-center bg-red-300">
+                <Tile pokeIndex={myTile} />
+            </div>
+            <div className="flex flex-row flex-wrap h-fit min-w-36 max-w-fit w-1/2 mx-auto justify-center p-2 gap-2 bg-red-200">
+                <button
+                    onClick={pickTile}
+                    className="bg-blue-300 h-16 w-36 rounded-lg"
+                >
+                    Gen Tile
+                </button>
+                <button
+                    onClick={genBoard}
+                    className="bg-blue-300 h-16 w-36 rounded-lg"
+                >
+                    Gen new board
+                </button>
+            </div>
             <div className="flex flex-row flex-wrap max-w-screen-2xl mx-auto gap-4 p-4 justify-center bg-blue-100 bg-opacity-50">
-                <Board boardSize={5}/>
+                <Board board={board} />
             </div>
         </div>
     );

@@ -6,14 +6,20 @@ export interface Pokemon {
     types: { type: { name: string; url: string } }[];
 }
 
-const getPokemon = async (index: number) => {
-    //reject index below 0
-    const res = await (await fetch(pokeUrl + index)).json();
-    return res as Pokemon;
-    // return  fetch(pokeUrl + index)
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //         return res as Pokemon;
-    //     });
+export const errorPokemon: Pokemon = {
+    name: "Error",
+    sprites: { front_default: "null" },
+    types: [{ type: { name: "null", url: "null" } }],
+    // types: { type: {name: "null", url: "null"} } ,
 };
+
+const getPokemon = async (index: number):Promise<Pokemon> => {
+    try {
+        const res = await (await fetch(pokeUrl + index)).json();
+        return res as Pokemon;
+    } catch (error) {
+        return errorPokemon        
+    }
+};
+
 export default getPokemon;

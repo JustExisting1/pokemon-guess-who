@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Pokemon } from "../api/getPokeName";
+import getPokemon, { errorPokemon } from "../api/getPokeName";
+import masterBall from "/masterBall.png";
 
-const backImage = "https://img.pokemondb.net/sprites/items/cherish-ball.png";
+const backImage = masterBall;
 
 const typeColour: { [type: string]: string } = {
     normal: "bg-[#AAAB98]",
@@ -24,20 +25,19 @@ const typeColour: { [type: string]: string } = {
     fairy: "bg-[#EF99EF]",
 };
 
-const TypeLable: React.FC<{ type:string }> = ({ type }) => {
-    if(type == "none"){
+const TypeLable: React.FC<{ type: string }> = ({ type }) => {
+    if (type == "none") {
         return null;
     }
 
     return (
-        <label className={`${typeColour[type]} px-1 rounded-lg`}>
-            {type}
-        </label>
+        <label className={`${typeColour[type]} px-1 rounded-lg`}>{type}</label>
     );
 };
 
-const Tile: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
+const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const [isFlipped, setIsFlipped] = useState(false);
+    const [pokemon, setPokemon] = useState(errorPokemon);
     const [tileName, setTileName] = useState("Loading");
     const [imgUrl, setImgUrl] = useState("Test");
     const [mainType, setMainType] = useState("Main Type");
@@ -48,13 +48,14 @@ const Tile: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
     };
 
     useEffect(() => {
+        getPokemon(pokeIndex).then((data) => setPokemon(data));
         setTileName(pokemon.name);
         setImgUrl(pokemon.sprites.front_default);
         setMainType(pokemon.types[0].type.name);
         if (pokemon.types[1] !== undefined) {
             setSubType(pokemon.types[1].type.name);
         }
-    }, [pokemon]);
+    }, [pokemon, pokeIndex]);
 
     return (
         <div
@@ -75,9 +76,9 @@ const Tile: React.FC<{ pokemon: Pokemon }> = ({ pokemon }) => {
                 <div className="w-32 text-center text-ellipsis overflow-clip bg-slate-400 rounded-b-lg">
                     <label>{tileName}</label>
                     <div className="flex flex-row space-x-2 overflow-clip justify-center">
-                        <TypeLable type={mainType}/>
+                        <TypeLable type={mainType} />
                         {/* Make this conditional */}
-                        <TypeLable type={subType}/>
+                        <TypeLable type={subType} />
                     </div>
                 </div>
             </div>
