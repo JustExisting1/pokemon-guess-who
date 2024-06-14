@@ -26,7 +26,7 @@ const typeColour: { [type: string]: string } = {
 };
 
 const TypeLable: React.FC<{ type: string }> = ({ type }) => {
-    if (type == "none") {
+    if (type == "null") {
         return null;
     }
 
@@ -41,7 +41,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const [tileName, setTileName] = useState("Loading");
     const [imgUrl, setImgUrl] = useState("Test");
     const [mainType, setMainType] = useState("Main Type");
-    const [subType, setSubType] = useState("none");
+    const [subType, setSubType] = useState("null");
 
     const handleClick = () => {
         setIsFlipped(!isFlipped);
@@ -54,6 +54,8 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
         setMainType(pokemon.types[0].type.name);
         if (pokemon.types[1] !== undefined) {
             setSubType(pokemon.types[1].type.name);
+        }else{
+            setSubType("null")
         }
     }, [pokemon, pokeIndex]);
 
@@ -63,7 +65,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
             className={
                 `flex h-44 w-32 items-center justify-center
                 [transform-style:preserve-3d] overflow-visible transition-transform duration-500
-             bg-slate-200 rounded-lg ring-2 ring-offset-2 ring-offset-black ring-slate-900 active:ring-offset-slate-300
+             bg-[#FFF0EC] rounded-lg ring-2 ring-offset-2 ring-offset-black ring-slate-900 active:ring-offset-slate-300
               hover:ring-white hover:ring-4 ` +
                 (isFlipped
                     ? "[transform:rotateY(180deg)]"
@@ -73,7 +75,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
             {/* Front */}
             <div className="absolute truncate container [backface-visibility:hidden]">
                 <img src={imgUrl} className="w-full rounded-t-lg" />
-                <div className="w-32 text-center text-ellipsis overflow-clip bg-slate-400 rounded-b-lg">
+                <div className="w-32 text-center text-ellipsis overflow-clip bg-[#FFD1C4] rounded-b-lg">
                     <label>{tileName}</label>
                     <div className="flex flex-row space-x-2 overflow-clip justify-center">
                         <TypeLable type={mainType} />

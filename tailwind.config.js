@@ -4,9 +4,18 @@ export default {
     theme: {
         extend:{
             fontFamily:{
-                "test": ['Work Sans', "sans-serif"],
-                "test01": ['Major Mono Display', "sans-serif"]
+                "test": ['Tiny5', "sans-serif"],
             },
+            colors:{
+                red: {
+                    xl: "ad",
+                    l: "ad",
+                    default: "ad",
+                    d: "ad",
+                    xd: "ad",
+                }
+
+            }
         }
     },
     plugins: [],
