@@ -4,12 +4,13 @@ import Board from "./components/Board";
 import getRandomInt from "./utils/randomInt";
 import Tile from "./components/Tile";
 import gitIcon from "./assets/github-mark.svg";
+import gitIconW from "./assets/github-mark-white.svg";
 //Generate key for board
 //Pick a random tile from the board key
 //generate the passing in the board key
 
 const maxRange = 1025;
-const boardSize = 1;
+const boardSize = 20;
 
 const boardKey = (boardSize: number): number[] => {
     const key: number[] = [];
@@ -42,6 +43,7 @@ function App() {
     function genBoard() {
         //This should reload the page to the new board url site
         setBoard(boardKey(boardSize));
+        //pick a tile from the board 
     }
 
     function pickTile() {
@@ -50,13 +52,32 @@ function App() {
         setMyTile(board[rand]);
     }
 
+    function copyURL() {
+        if (!navigator.clipboard) {
+            alert(
+                "Clipboard API not supported. Please manually copy the url to share this board."
+            );
+        }
+        navigator.clipboard
+            .writeText(window.location.href)
+            .then(() => {
+                alert("Link copied to clipboard!");
+            })
+            .catch((err) => {
+                alert(
+                    "Could not copy url. Please manually copy the url to share this board."
+                );
+                console.log(err);
+            });
+    }
+
     return (
-        <div className="bg-[#545454] min-h-screen">
-            <div className="bg-[#353535] h-fit pt-2 pb-2">
-                <h1 className="font-test text-7xl text-center text-[#FF3900]">
+        <div className="bg-dark-d min-h-screen">
+            <div className="bg-dark-xd h-fit pt-2 pb-2">
+                <h1 className="font-test text-7xl text-center text-accent">
                     Guess Who Game
                 </h1>
-                <h2 className="font-test text-4xl text-center text-[#FF3900]">
+                <h2 className="font-test text-4xl text-center text-accent">
                     Pokemon Edition
                 </h2>
             </div>
@@ -67,30 +88,36 @@ function App() {
             <div className="flex flex-row flex-wrap h-fit min-w-36 max-w-fit w-1/2 mx-auto justify-center p-2 gap-2">
                 <button
                     onClick={pickTile}
-                    className="bg-[#FF3900] hover:bg-[#A72600] active:bg-[#D93100] h-16 w-36 rounded-lg"
+                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
                 >
                     Gen Tile
                 </button>
                 <button
+                    onClick={copyURL}
+                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
+                >
+                    Share Board
+                </button>
+                <button
                     onClick={genBoard}
-                    className="bg-[#FF3900] hover:bg-[#A72600] active:bg-[#D93100] h-16 w-36 rounded-lg"
+                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
                 >
                     Gen new board
                 </button>
             </div>
-            <div className="flex flex-row flex-wrap max-w-screen-2xl mx-auto gap-4 p-4 justify-center bg-[#373737] bg-opacity-50">
+            <div className="flex flex-row flex-wrap min-w-fit max-w-screen-2xl w-1/2 mx-auto gap-4 p-4 justify-center bg-dark">
                 <Board board={board} />
             </div>
             <br />
-            <div className="w-full h-auto flex justify-center">
+            <div className="w-full h-auto flex justify-center p-2">
                 <a
                     className="group"
                     href="https://github.com/JustExisting1"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <img className="size-8 mx-auto" src={gitIcon} />
-                    <p className="text-center text-sm text-gray-900 group-hover:underline">
+                    <img className="size-8 mx-auto" src={gitIconW} />
+                    <p className="text-center text-sm text-primary-xl group-hover:underline">
                         By JustExisting1
                     </p>
                 </a>

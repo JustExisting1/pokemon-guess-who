@@ -31,7 +31,7 @@ const TypeLable: React.FC<{ type: string }> = ({ type }) => {
     }
 
     return (
-        <label className={`${typeColour[type]} px-1 rounded-lg`}>{type}</label>
+        <label className={`${typeColour[type]} px-1 rounded-lg text-dark-xd`}>{type}</label>
     );
 };
 
@@ -63,10 +63,10 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
         <div
             onClick={handleClick}
             className={
-                `flex h-44 w-32 items-center justify-center
+                `flex h-[178px] w-32 items-center justify-center
                 [transform-style:preserve-3d] overflow-visible transition-transform duration-500
-             bg-[#FFF0EC] rounded-lg ring-2 ring-offset-2 ring-offset-black ring-slate-900 active:ring-offset-slate-300
-              hover:ring-white hover:ring-4 ` +
+             bg-light-xl rounded-lg ring-2 ring-offset-2 ring-offset-accent-xd ring-accent active:ring-offset-accent
+              hover:ring-accent-xl hover:ring-4 ` +
                 (isFlipped
                     ? "[transform:rotateY(180deg)]"
                     : "[transform:rotateY(0deg)]")
@@ -75,8 +75,8 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
             {/* Front */}
             <div className="absolute truncate container [backface-visibility:hidden]">
                 <img src={imgUrl} className="w-full rounded-t-lg" />
-                <div className="w-32 text-center text-ellipsis overflow-clip bg-[#FFD1C4] rounded-b-lg">
-                    <label>{tileName}</label>
+                <div className="w-32 h-[50px] text-center text-ellipsis overflow-clip bg-light rounded-b-lg">
+                    <label className="text-dark-xd">{tileName}</label>
                     <div className="flex flex-row space-x-2 overflow-clip justify-center">
                         <TypeLable type={mainType} />
                         {/* Make this conditional */}
