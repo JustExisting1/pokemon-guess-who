@@ -74,10 +74,10 @@ function App() {
     return (
         <div className="bg-dark-d min-h-screen">
             <div className="bg-dark-xd h-fit pt-2 pb-2">
-                <h1 className="font-test text-7xl text-center text-accent">
+                <h1 className="font-display text-7xl text-center text-accent">
                     Guess Who Game
                 </h1>
-                <h2 className="font-test text-4xl text-center text-accent">
+                <h2 className="font-display text-4xl text-center text-accent">
                     Pokemon Edition
                 </h2>
             </div>
@@ -88,19 +88,19 @@ function App() {
             <div className="flex flex-row flex-wrap h-fit min-w-36 max-w-fit w-1/2 mx-auto justify-center p-2 gap-2">
                 <button
                     onClick={pickTile}
-                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
+                    className="bg-accent text-light-xl text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
                 >
                     Gen Tile
                 </button>
                 <button
                     onClick={copyURL}
-                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
+                    className="bg-accent text-light-xl text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
                 >
                     Share Board
                 </button>
                 <button
                     onClick={genBoard}
-                    className="bg-accent text-light-xl font-test text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
+                    className="bg-accent text-light-xl text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
                 >
                     Gen new board
                 </button>

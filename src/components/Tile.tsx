@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import getPokemon, { errorPokemon } from "../api/getPokeName";
-import masterBall from "/masterBall.png";
+import pokeball from "/pokeball.png";
+import usePokemonAsync from "../api/getPokeName";
 
-const backImage = masterBall;
+const backImage = pokeball;
 
 const typeColour: { [type: string]: string } = {
     normal: "bg-[#AAAB98]",
@@ -31,7 +32,9 @@ const TypeLable: React.FC<{ type: string }> = ({ type }) => {
     }
 
     return (
-        <label className={`${typeColour[type]} px-1 rounded-lg text-dark-xd`}>{type}</label>
+        <label className={`${typeColour[type]} px-1 rounded-lg text-dark-xd`}>
+            {type}
+        </label>
     );
 };
 
@@ -47,17 +50,29 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
         setIsFlipped(!isFlipped);
     };
 
+    // useEffect(() => {
+    //     getPokemon(pokeIndex).then((data) => setPokemon(data));
+    //     setTileName(pokemon.name);
+    //     setImgUrl(pokemon.sprites.front_default);
+    //     setMainType(pokemon.types[0].type.name);
+    //     if (pokemon.types[1] !== undefined) {
+    //         setSubType(pokemon.types[1].type.name);
+    //     }else{
+    //         setSubType("null")
+    //     }
+    // }, [pokemon, pokeIndex]);
+    const poke = usePokemonAsync(pokeIndex);
+
     useEffect(() => {
-        getPokemon(pokeIndex).then((data) => setPokemon(data));
-        setTileName(pokemon.name);
-        setImgUrl(pokemon.sprites.front_default);
-        setMainType(pokemon.types[0].type.name);
-        if (pokemon.types[1] !== undefined) {
-            setSubType(pokemon.types[1].type.name);
-        }else{
-            setSubType("null")
+        setTileName(poke.name);
+        setImgUrl(poke.sprites.front_default);
+        setMainType(poke.types[0].type.name);
+        if (poke.types[1] !== undefined) {
+            setSubType(poke.types[1].type.name);
+        } else {
+            setSubType("null");
         }
-    }, [pokemon, pokeIndex]);
+    }, [poke]);
 
     return (
         <div
@@ -85,7 +100,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
                 </div>
             </div>
             {/* Back */}
-            <div className="relative content-center h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)]">
+            <div className="relative rounded-lg bg-light content-center h-full w-full [backface-visibility:hidden] [transform:rotateY(180deg)]">
                 <img src={backImage} className="w-full rounded-t-lg" />
             </div>
         </div>
