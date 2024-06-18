@@ -64,6 +64,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const poke = usePokemonAsync(pokeIndex);
 
     useEffect(() => {
+        setIsFlipped(false);
         setTileName(poke.name);
         setImgUrl(poke.sprites.front_default);
         setMainType(poke.types[0].type.name);

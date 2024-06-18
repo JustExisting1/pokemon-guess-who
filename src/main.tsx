@@ -6,7 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page.tsx";
 
 const router = createBrowserRouter([{
-    path: "/",
+    path: "/pokemon-guess-who/",
     element: <App/>,
     errorElement: <ErrorPage/>,
 },

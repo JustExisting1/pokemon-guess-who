@@ -6,12 +6,14 @@ import Tile from "./components/Tile";
 // import gitIcon from "./assets/github-mark.svg";
 import gitIconW from "./assets/github-mark-white.svg";
 import { useNavigate, useSearchParams } from "react-router-dom";
-//Generate key for board
-//Pick a random tile from the board key
-//generate the passing in the board key
+
 const minRange = 1;
 const maxRange = 1025;
-const boardSize = 20;
+const boardSize = 32;
+
+//todo list
+//prevent duplicates
+//encode + decode board url
 
 const boardKey = (boardSize: number): number[] => {
     const key: number[] = [];
