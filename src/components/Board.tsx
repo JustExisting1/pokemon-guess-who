@@ -16,8 +16,8 @@ const Board: React.FC<{ board: number[] }> = ({ board }) => {
 
 
     return boardState.map((each) => (
-        <div>
-            <Tile pokeIndex={each.value} key={each.key} />
+        <div key={each.key}>
+            <Tile pokeIndex={each.value}/>
         </div>
     ));
 };
