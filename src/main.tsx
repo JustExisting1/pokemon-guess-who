@@ -6,11 +6,12 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./error-page.tsx";
 
 const router = createBrowserRouter([{
-    path: "/pokemon-guess-who/",
+    path: "/",
     element: <App/>,
     errorElement: <ErrorPage/>,
+    
 },
-]);
+], {basename: "/pokemon-guess-who/"});
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
