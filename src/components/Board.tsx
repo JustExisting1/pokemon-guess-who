@@ -13,8 +13,6 @@ const Board: React.FC<{ board: number[] }> = ({ board }) => {
         setBoardState(boardKvP);
     }, [board]);
 
-
-
     return boardState.map((each) => (
         <div key={each.key}>
             <Tile pokeIndex={each.value}/>

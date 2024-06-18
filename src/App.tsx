@@ -3,9 +3,9 @@ import "./App.css";
 import Board from "./components/Board";
 import getRandomInt from "./utils/randomInt";
 import Tile from "./components/Tile";
-import gitIcon from "./assets/github-mark.svg";
+// import gitIcon from "./assets/github-mark.svg";
 import gitIconW from "./assets/github-mark-white.svg";
-import { useFetcher, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 //Generate key for board
 //Pick a random tile from the board key
 //generate the passing in the board key
@@ -74,7 +74,7 @@ function App() {
             });
     }
 
-    const [searchParamas, setSearchParams] = useSearchParams();
+    const [searchParamas] = useSearchParams();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -94,9 +94,9 @@ function App() {
     }, [searchParamas, navigate]);
 
     //Pick new tile whenever board changes
-    useEffect(()=>{
-        pickTile()
-    },[board])
+    useEffect(() => {
+        pickTile();
+    }, [board]);
 
     //Checks that the url has a valid board, otherwise returns that board is invalid
     const urlToKey = (
@@ -138,8 +138,6 @@ function App() {
         return { board: [1], valid: false };
     };
 
-    const test = urlToKey(searchParamas.get("board"));
-
     //sanatise query,
     //if any error in the url, create a new board and set that as the url
     //if the url is valid, decrypt it
@@ -154,8 +152,6 @@ function App() {
                 <h2 className="font-display text-4xl text-center text-accent">
                     Pokemon Edition
                 </h2>
-                {/* <Route path="/" element={<Test/>}/> */}
-                <p className="text-light-xl text-center">URL: {test.board}</p>
             </div>
             <br />
             <div className="flex mx-auto size-fit p-4 justify-center">

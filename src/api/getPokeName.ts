@@ -27,7 +27,7 @@ export const errorPokemon: Pokemon = {
 
 const usePokemonAsync = (index: number) => {
     const [pokemon, setPokemon] = useState(errorPokemon);
-    const [isLoading, setIsLoading] = useState(true);   //Add this feature
+    // const [isLoading, setIsLoading] = useState(true);   //Add this feature
 
     useEffect(() => {
         //Abort controller for managing requests
@@ -49,7 +49,7 @@ const usePokemonAsync = (index: number) => {
                 console.log("There was an error fetching pokemon: ", error); //Log Error
                 // setError("error"); //Handle and set error message
             } finally {
-                setIsLoading(false); //Turn off loading indicator
+                // setIsLoading(false); //Turn off loading indicator
             }
         };
 
@@ -57,7 +57,7 @@ const usePokemonAsync = (index: number) => {
 
         return () => {
             abortController.abort(); //Cancel any ongoing requests
-            setIsLoading(true); //Reset loading state
+            // setIsLoading(true); //Reset loading state
         };
     }, [index]); //Rerun the effect when "Index" changes
 
