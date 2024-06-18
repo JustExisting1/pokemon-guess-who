@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import getPokemon, { errorPokemon } from "../api/getPokeName";
+// import getPokemon, { errorPokemon } from "../api/getPokeName";
 import pokeball from "/pokeball.png";
 import usePokemonAsync from "../api/getPokeName";
 
