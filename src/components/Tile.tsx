@@ -40,7 +40,7 @@ const TypeLable: React.FC<{ type: string }> = ({ type }) => {
 
 const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const [isFlipped, setIsFlipped] = useState(false);
-    const [pokemon, setPokemon] = useState(errorPokemon);
+    // const [pokemon, setPokemon] = useState(errorPokemon);
     const [tileName, setTileName] = useState("Loading");
     const [imgUrl, setImgUrl] = useState("Test");
     const [mainType, setMainType] = useState("Main Type");

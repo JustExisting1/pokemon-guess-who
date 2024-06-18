@@ -5,17 +5,18 @@ import getRandomInt from "./utils/randomInt";
 import Tile from "./components/Tile";
 import gitIcon from "./assets/github-mark.svg";
 import gitIconW from "./assets/github-mark-white.svg";
+import { useFetcher, useNavigate, useSearchParams } from "react-router-dom";
 //Generate key for board
 //Pick a random tile from the board key
 //generate the passing in the board key
-
+const minRange = 1;
 const maxRange = 1025;
 const boardSize = 20;
 
 const boardKey = (boardSize: number): number[] => {
     const key: number[] = [];
     for (let i = 0; i < boardSize; i++) {
-        key.push(getRandomInt(0, maxRange));
+        key.push(getRandomInt(minRange, maxRange));
     }
     return key;
 };
@@ -30,20 +31,22 @@ const keyToUrl = (key: number[]) => {
 };
 
 function App() {
-    const [board, setBoard] = useState<number[]>([]);
-    const [myTile, setMyTile] = useState<number>(0);
+    const [board, setBoard] = useState<number[]>([1]);
+    const [myTile, setMyTile] = useState<number>(1);
 
-    //Generate a board on start
-    useEffect(() => {
-        setBoard(boardKey(boardSize));
-        setMyTile(1);
-    }, []);
+    // //Generate a board on start
+    // useEffect(() => {
+    //     setBoard(boardKey(boardSize));
+    //     setMyTile(1);
+    // }, []);
 
     //Create new board -> change url to new site?
     function genBoard() {
         //This should reload the page to the new board url site
-        setBoard(boardKey(boardSize));
-        //pick a tile from the board 
+        const boardUrl = keyToUrl(boardKey(boardSize));
+        navigate(`/?board=${boardUrl}`);
+        // setBoard(boardKey(boardSize));
+        //pick a tile from the board
     }
 
     function pickTile() {
@@ -71,6 +74,77 @@ function App() {
             });
     }
 
+    const [searchParamas, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        //Check if url contains valid board
+        const query = searchParamas.get("board");
+        const board = urlToKey(query);
+
+        //Board is not valid, gen new link + board
+        if (board.valid == false) {
+            const boardUrl = keyToUrl(boardKey(boardSize));
+            navigate(`/?board=${boardUrl}`);
+            return;
+        }
+
+        //Board is valid, load it
+        setBoard(board.board);
+    }, [searchParamas, navigate]);
+
+    //Pick new tile whenever board changes
+    useEffect(()=>{
+        pickTile()
+    },[board])
+
+    //Checks that the url has a valid board, otherwise returns that board is invalid
+    const urlToKey = (
+        url: string | null
+    ): { board: number[]; valid: boolean } => {
+        //Check board query exits
+        if (url != null) {
+            //board query exists
+            const stringBoard: string[] = url.split("-");
+            const board: number[] = stringBoard.map((x) => {
+                return Number(x);
+            });
+            //Check for Nan
+            if (board.includes(NaN)) {
+                //Not valid board
+                console.log("Board contains NaN");
+                return { board: [1], valid: false };
+            }
+            //Check that all numbers are within range
+            const below = board.filter((x) => x < minRange);
+            const above = board.filter((x) => x > maxRange);
+            if (below.length > 0 || above.length > 0) {
+                //Not valid board
+                console.log("Out of range value");
+                return { board: [1], valid: false };
+            }
+            //Check that board legnth is the same as board size
+            if (board.length != boardSize) {
+                //Not valid board
+                console.log("Not enough tiles in board");
+                return { board: [1], valid: false };
+            }
+
+            //Valid Board
+            return { board: board, valid: true };
+        }
+        //No board in query
+        console.log("No board in link");
+        return { board: [1], valid: false };
+    };
+
+    const test = urlToKey(searchParamas.get("board"));
+
+    //sanatise query,
+    //if any error in the url, create a new board and set that as the url
+    //if the url is valid, decrypt it
+    //send the decrypted url to the board as a number[]
+
     return (
         <div className="bg-dark-d min-h-screen">
             <div className="bg-dark-xd h-fit pt-2 pb-2">
@@ -80,6 +154,8 @@ function App() {
                 <h2 className="font-display text-4xl text-center text-accent">
                     Pokemon Edition
                 </h2>
+                {/* <Route path="/" element={<Test/>}/> */}
+                <p className="text-light-xl text-center">URL: {test.board}</p>
             </div>
             <br />
             <div className="flex mx-auto size-fit p-4 justify-center">

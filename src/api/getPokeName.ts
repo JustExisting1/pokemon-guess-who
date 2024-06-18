@@ -27,7 +27,7 @@ export const errorPokemon: Pokemon = {
 
 const usePokemonAsync = (index: number) => {
     const [pokemon, setPokemon] = useState(errorPokemon);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);   //Add this feature
 
     useEffect(() => {
         //Abort controller for managing requests
@@ -46,7 +46,7 @@ const usePokemonAsync = (index: number) => {
                     console.log("Fetch aborted"); //Intentionally aborted
                     return; //Stop further error handlingD
                 }
-                console.log(error); //Log Error
+                console.log("There was an error fetching pokemon: ", error); //Log Error
                 // setError("error"); //Handle and set error message
             } finally {
                 setIsLoading(false); //Turn off loading indicator
