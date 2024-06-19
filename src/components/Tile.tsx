@@ -115,6 +115,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
                 </div>
                 <div className="w-full h-fit object-bottom text-center">
                     <label>Gen: {gen()}</label>
+                    {/* <label>Gen: {gen()}</label> */}
                 </div>
             </div>
             {/* Back */}

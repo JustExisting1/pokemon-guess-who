@@ -12,7 +12,6 @@ const maxRange = 1025;
 const boardSize = 32;
 
 //todo list
-//prevent duplicates *** Fixed?
 //encode + decode board url
 /*Pokemon descs
 *   evolves_from_species => null = base evo
