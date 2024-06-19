@@ -38,42 +38,49 @@ const TypeLable: React.FC<{ type: string }> = ({ type }) => {
     );
 };
 
+const numerNums = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"];
+
 const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const [isFlipped, setIsFlipped] = useState(false);
-    // const [pokemon, setPokemon] = useState(errorPokemon);
-    const [tileName, setTileName] = useState("Loading");
-    const [imgUrl, setImgUrl] = useState("Test");
-    const [mainType, setMainType] = useState("Main Type");
-    const [subType, setSubType] = useState("null");
 
     const handleClick = () => {
         setIsFlipped(!isFlipped);
     };
 
-    // useEffect(() => {
-    //     getPokemon(pokeIndex).then((data) => setPokemon(data));
-    //     setTileName(pokemon.name);
-    //     setImgUrl(pokemon.sprites.front_default);
-    //     setMainType(pokemon.types[0].type.name);
-    //     if (pokemon.types[1] !== undefined) {
-    //         setSubType(pokemon.types[1].type.name);
-    //     }else{
-    //         setSubType("null")
-    //     }
-    // }, [pokemon, pokeIndex]);
     const poke = usePokemonAsync(pokeIndex);
+    const imgUrl = poke.sprites.front_default;
+    const tileName = poke.name;
+    const mainType = poke.types[0].type.name;
+    const subType = () => {
+        if (poke.types[1] !== undefined) {
+            return poke.types[1].type.name;
+        } else {
+            return "null";
+        }
+    };
+    const gen = () => {
+        const numeral = poke.species.generation.name.split("-").pop();
+        return numerNums.findIndex((e) => e === numeral) + 1;
+        //sort gen
+    };
+    const isLegendary = poke.species.is_legendary;
+    const isMythical = poke.species.is_mythical;
+    const shimmer = () => {
+        if (isLegendary || isMythical) {
+            return "bg-yellow-300";
+        }
+        return null;
+    };
+    const shimmerPadding = () => {
+        if (isLegendary || isMythical) {
+            return 1;
+        }
+        return 0;
+    };
 
     useEffect(() => {
         setIsFlipped(false);
-        setTileName(poke.name);
-        setImgUrl(poke.sprites.front_default);
-        setMainType(poke.types[0].type.name);
-        if (poke.types[1] !== undefined) {
-            setSubType(poke.types[1].type.name);
-        } else {
-            setSubType("null");
-        }
-    }, [poke]);
+    }, [pokeIndex]);
 
     return (
         <div
@@ -89,15 +96,25 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
             }
         >
             {/* Front */}
-            <div className="absolute truncate container [backface-visibility:hidden]">
-                <img src={imgUrl} className="w-full rounded-t-lg" />
-                <div className="w-32 h-[50px] text-center text-ellipsis overflow-clip bg-light rounded-b-lg">
-                    <label className="text-dark-xd">{tileName}</label>
+            <div className="absolute w-full h-full truncate container bg-light rounded-lg [backface-visibility:hidden]">
+                <div className="w-32 h-[50px] text-center text-ellipsis overflow-clip">
+                    <label className="text-dark-xd px-1">{tileName}</label>
                     <div className="flex flex-row space-x-2 overflow-clip justify-center">
                         <TypeLable type={mainType} />
-                        {/* Make this conditional */}
-                        <TypeLable type={subType} />
+                        <TypeLable type={subType()} />
                     </div>
+                </div>
+                {/* Change the colour depending on legendary/mythic/not */}
+                <div
+                    className={`w-10/12 mx-auto p-${shimmerPadding()} rounded-lg ${shimmer()}`}
+                >
+                    <img
+                        src={imgUrl}
+                        className="w-full mx-auto rounded-lg bg-light-xl shadow-red-400"
+                    />
+                </div>
+                <div className="w-full h-fit object-bottom text-center">
+                    <label>Gen: {gen()}</label>
                 </div>
             </div>
             {/* Back */}

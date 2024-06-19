@@ -12,13 +12,23 @@ const maxRange = 1025;
 const boardSize = 32;
 
 //todo list
-//prevent duplicates
+//prevent duplicates *** Fixed?
 //encode + decode board url
+/*Pokemon descs
+*   evolves_from_species => null = base evo
+*   evolves to?
+*/
 
 const boardKey = (boardSize: number): number[] => {
     const key: number[] = [];
     for (let i = 0; i < boardSize; i++) {
-        key.push(getRandomInt(minRange, maxRange));
+        //check if it is in the array => if is in array, reroll and check again
+        const rand = getRandomInt(minRange,maxRange);
+        if(!key.includes(rand)){
+            key.push(getRandomInt(minRange, maxRange));
+        }else{
+            i--;
+        }
     }
     return key;
 };
@@ -35,12 +45,6 @@ const keyToUrl = (key: number[]) => {
 function App() {
     const [board, setBoard] = useState<number[]>([1]);
     const [myTile, setMyTile] = useState<number>(1);
-
-    // //Generate a board on start
-    // useEffect(() => {
-    //     setBoard(boardKey(boardSize));
-    //     setMyTile(1);
-    // }, []);
 
     //Create new board -> change url to new site?
     function genBoard() {
