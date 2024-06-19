@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const minRange = 1;
 const maxRange = 1025;
-const boardSize = 2;
+const boardSize = 32;
 
 //todo list
 //prevent duplicates
