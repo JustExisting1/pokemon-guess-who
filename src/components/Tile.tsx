@@ -73,9 +73,9 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     };
     const shimmerPadding = () => {
         if (isLegendary || isMythical) {
-            return 1;
+            return "p-1";
         }
-        return 0;
+        return "p-0";
     };
 
     useEffect(() => {
@@ -106,7 +106,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
                 </div>
                 {/* Change the colour depending on legendary/mythic/not */}
                 <div
-                    className={`w-10/12 mx-auto p-${shimmerPadding()} rounded-lg ${shimmer()}`}
+                    className={`w-10/12 mx-auto ${shimmerPadding()} rounded-lg ${shimmer()}`}
                 >
                     <img
                         src={imgUrl}
