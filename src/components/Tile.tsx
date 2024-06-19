@@ -74,11 +74,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const isLegendary = poke.species.is_legendary;
     const isMythical = poke.species.is_mythical;
     const shimmer = () => {
-        if (isLegendary) {
-            return "bg-purple-300";
-        }
-
-        if (isMythical) {
+        if (isLegendary || isMythical) {
             return "bg-yellow-300";
         }
         return null;
