@@ -45,22 +45,14 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
     const [imgUrl, setImgUrl] = useState("Test");
     const [mainType, setMainType] = useState("Main Type");
     const [subType, setSubType] = useState("null");
+    const [gen, setGen] = useState("Gen");  //parse into number
+    const [legendary, setLegendary] = useState(Boolean) 
+    const [mythical, setMythical] = useState(Boolean)
 
     const handleClick = () => {
         setIsFlipped(!isFlipped);
     };
 
-    // useEffect(() => {
-    //     getPokemon(pokeIndex).then((data) => setPokemon(data));
-    //     setTileName(pokemon.name);
-    //     setImgUrl(pokemon.sprites.front_default);
-    //     setMainType(pokemon.types[0].type.name);
-    //     if (pokemon.types[1] !== undefined) {
-    //         setSubType(pokemon.types[1].type.name);
-    //     }else{
-    //         setSubType("null")
-    //     }
-    // }, [pokemon, pokeIndex]);
     const poke = usePokemonAsync(pokeIndex);
 
     useEffect(() => {
@@ -73,6 +65,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
         } else {
             setSubType("null");
         }
+        setGen(poke.species.generation.name);
     }, [poke]);
 
     return (

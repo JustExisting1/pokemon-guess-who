@@ -9,12 +9,18 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const minRange = 1;
 const maxRange = 1025;
-const boardSize = 32;
+const boardSize = 2;
 
 //todo list
 //prevent duplicates
 //encode + decode board url
-
+/*Pokemon descs
+*   generation {name: "generation-vii" } => 7
+*   is_legenday - /pokemon-species/2/
+*   is_mythical - /pokemon-species/2/
+*   evolves_from_species => null = base evo
+*   evolves to?
+*/
 const boardKey = (boardSize: number): number[] => {
     const key: number[] = [];
     for (let i = 0; i < boardSize; i++) {
