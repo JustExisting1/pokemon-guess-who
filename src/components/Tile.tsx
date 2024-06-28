@@ -32,7 +32,7 @@ const TypeLable: React.FC<{ type: string }> = ({ type }) => {
     }
 
     return (
-        <label className={`${typeColour[type]} px-1 rounded-lg text-dark-xd`}>
+        <label className={`${typeColour[type]} px-1 rounded-md sm:rounded-lg text-sm sm:text-base text-dark-xd`}>
             {type}
         </label>
     );
@@ -86,7 +86,7 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
         <div
             onClick={handleClick}
             className={
-                `flex h-[178px] w-32 items-center justify-center
+                `flex w-24 sm:w-32 min-h-fit h-[156px] sm:h-[178px]  items-center justify-center
                 [transform-style:preserve-3d] overflow-visible transition-transform duration-500
              bg-light-xl rounded-lg ring-2 ring-offset-2 ring-offset-accent-xd ring-accent active:ring-offset-accent
               hover:ring-accent-xl hover:ring-4 ` +
@@ -96,10 +96,10 @@ const Tile: React.FC<{ pokeIndex: number }> = ({ pokeIndex }) => {
             }
         >
             {/* Front */}
-            <div className="absolute w-full h-full truncate container bg-light rounded-lg [backface-visibility:hidden]">
-                <div className="w-32 h-[50px] text-center text-ellipsis overflow-clip">
+            <div className="absolute w-full h-full truncate flex flex-col justify-center items-center bg-light rounded-lg [backface-visibility:hidden]">
+                <div className="w-32 h-[50px] pb-2 text-center text-ellipsis overflow-clip">
                     <label className="text-dark-xd px-1">{tileName}</label>
-                    <div className="flex flex-row space-x-2 overflow-clip justify-center">
+                    <div className="flex flex-row space-x-0 sm:space-x-2 overflow-clip justify-center">
                         <TypeLable type={mainType} />
                         <TypeLable type={subType()} />
                     </div>
