@@ -153,7 +153,8 @@ function App() {
 
     return (
         <div className="bg-dark-d min-h-screen">
-            <div className="bg-dark-xd h-fit pt-2 pb-2">
+            {/* Title */}
+            <div className="bg-dark-xd h-fit pt-2 pb-4">
                 <h1 className="font-display text-7xl text-center text-accent">
                     Guess Who Game
                 </h1>
@@ -161,11 +162,12 @@ function App() {
                     Pokemon Edition
                 </h2>
             </div>
-            <br />
-            <div className="flex mx-auto size-fit p-4 justify-center">
+            {/* My Tile */}
+            <div className="flex mx-auto h-fit w-full p-4 justify-center">
                 <Tile pokeIndex={myTile} />
             </div>
-            <div className="flex flex-row flex-wrap h-fit min-w-36 max-w-fit w-1/2 mx-auto justify-center p-2 gap-2">
+            {/* Buttons */}
+            <div className="flex flex-row flex-wrap h-fit min-w-36 max-w-fit w-1/2 mx-auto justify-center p-4 gap-4">
                 <button
                     onClick={pickTile}
                     className="bg-accent text-light-xl text-xl hover:bg-accent-d active:bg-accent-xd h-16 w-36 rounded-lg"
@@ -185,11 +187,10 @@ function App() {
                     Gen new board
                 </button>
             </div>
-            <div className="flex flex-row flex-wrap min-w-fit max-w-screen-2xl w-1/2 mx-auto gap-4 p-4 justify-center bg-dark">
+            <div className="flex flex-row flex-wrap max-w-screen-2xl w-full mx-auto gap-3 sm:gap-4 p-4 justify-center bg-dark">
                 <Board board={board} />
             </div>
-            <br />
-            <div className="w-full h-auto flex justify-center p-2">
+            <div className="w-full h-auto flex justify-center items-center p-4">
                 <a
                     className="group"
                     href="https://github.com/JustExisting1"
