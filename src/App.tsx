@@ -16,6 +16,9 @@ const boardSize = 32;
 /*Pokemon descs
 *   evolves_from_species => null = base evo
 *   evolves to?
+* fully evloved?
+* colour?
+* habitat? X dont use this one
 */
 
 const boardKey = (boardSize: number): number[] => {
